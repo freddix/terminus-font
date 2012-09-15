@@ -1,7 +1,7 @@
 Summary:	A clean fixed width font
 Name:		terminus-font
 Version:	4.38
-Release:	1
+Release:	2
 License:	GPL
 Group:		Fonts
 Source0:	http://downloads.sourceforge.net/project/terminus-font/%{name}-%{version}/%{name}-%{version}.tar.gz
