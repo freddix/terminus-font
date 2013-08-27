@@ -1,7 +1,7 @@
 Summary:	A clean fixed width font
 Name:		terminus-font
 Version:	4.38
-Release:	2
+Release:	3
 License:	GPL
 Group:		Fonts
 Source0:	http://downloads.sourceforge.net/project/terminus-font/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -42,14 +42,25 @@ vt100 and xterm pseudographic characters.
 %setup -q
 
 %build
+chmod +x ./configure
+%configure \
+	--psfdir=%{_datadir}/kbd/consolefonts	\
+	--x11dir=%{_fontsdir}/local
 %{__make}
 
 %install
-
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_datadir}/fontconfig/conf.avail
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
+
 %{__make} install \
-	x11dir=$RPM_BUILD_ROOT%{_datadir}/fonts/local \
-	psfdir=$RPM_BUILD_ROOT%{_datadir}/kbd/consolefonts
+	DESTDIR=$RPM_BUILD_ROOT
+
+# fontconfig configuration
+install 75-yes-terminus.conf \
+	$RPM_BUILD_ROOT%{_datadir}/fontconfig/conf.avail
+ln -s %{_datadir}/fontconfig/conf.avail/75-yes-terminus.conf \
+	$RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,5 +79,7 @@ fontpostinst local
 %files X11
 %defattr(644,root,root,755)
 %doc README
-%{_datadir}/fonts/local/*
+%{_fontsdir}/local/*
+%{_datadir}/fontconfig/conf.avail/75-yes-terminus.conf
+%{_sysconfdir}/fonts/conf.d/75-yes-terminus.conf
 
