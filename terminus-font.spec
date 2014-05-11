@@ -1,11 +1,11 @@
 Summary:	A clean fixed width font
 Name:		terminus-font
-Version:	4.38
-Release:	3
+Version:	4.39
+Release:	1
 License:	GPL
 Group:		Fonts
 Source0:	http://downloads.sourceforge.net/project/terminus-font/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	a8e792fe6e84c86ed2b6ed3e2a12ba66
+# Source0-md5:	1ec1bee67a1c017f349bc8558b2d4fa6
 URL:		http://sourceforge.net/projects/terminus-font/
 BuildRequires:	perl-base
 BuildRequires:	xorg-app-bdftopcf
@@ -45,7 +45,7 @@ vt100 and xterm pseudographic characters.
 chmod +x ./configure
 %configure \
 	--psfdir=%{_datadir}/kbd/consolefonts	\
-	--x11dir=%{_fontsdir}/local
+	--x11dir=%{_fontsdir}/misc
 %{__make}
 
 %install
@@ -66,10 +66,10 @@ ln -s %{_datadir}/fontconfig/conf.avail/75-yes-terminus.conf \
 rm -rf $RPM_BUILD_ROOT
 
 %post X11
-fontpostinst local
+fontpostinst misc
 
 %postun X11
-fontpostinst local
+fontpostinst misc
 
 %files
 %defattr(644,root,root,755)
@@ -79,7 +79,7 @@ fontpostinst local
 %files X11
 %defattr(644,root,root,755)
 %doc README
-%{_fontsdir}/local/*
+%{_fontsdir}/misc/*
 %{_datadir}/fontconfig/conf.avail/75-yes-terminus.conf
 %{_sysconfdir}/fonts/conf.d/75-yes-terminus.conf
 
